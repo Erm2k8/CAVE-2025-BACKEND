@@ -8,10 +8,7 @@ O sistema foi projetado para leiloar uma obra de arte única, pintada ao vivo po
 
 ## Tecnologias Utilizadas
 
-<img src="https://img.shields.io/badge/Python-FFD43B?style=for-the-badge&logo=python&logoColor=blue">
-<img src="https://img.shields.io/badge/fastapi-109989?style=for-the-badge&logo=FASTAPI&logoColor=white">
-<img src="https://img.shields.io/badge/Pandas-2C2D72?style=for-the-badge&logo=pandas&logoColor=white">
-<img src="https://img.shields.io/badge/Sqlite-003B57?style=for-the-badge&logo=sqlite&logoColor=white">
+<img src="https://img.shields.io/badge/Python-FFD43B?style=for-the-badge&logo=python&logoColor=blue"><img src="https://img.shields.io/badge/fastapi-109989?style=for-the-badge&logo=FASTAPI&logoColor=white"><img src="https://img.shields.io/badge/Pandas-2C2D72?style=for-the-badge&logo=pandas&logoColor=white"><img src="https://img.shields.io/badge/Sqlite-003B57?style=for-the-badge&logo=sqlite&logoColor=white">
 
 ## Endpoints da Aplicação
 
@@ -36,7 +33,7 @@ git clone https://github.com/Erm2k8/CAVE-2025-BACKEND.git
 ```
 
 ```bash
-cd CAVE-2025-BACKEND/src
+cd CAVE-2025-BACKEND
 ```
 
 ```bash
@@ -54,6 +51,10 @@ source .venv/bin/activate # Linux/Mac
 
 ```bash
 python -m pip install -r requirements.txt
+```
+
+```bash
+cd src
 ```
 
 ```bash
