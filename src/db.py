@@ -1,0 +1,1 @@
+# Arquivo responsável pela configuração do banco de dados

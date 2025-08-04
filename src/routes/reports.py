@@ -1,0 +1,1 @@
+# Endpoints para geração dos relatórios
