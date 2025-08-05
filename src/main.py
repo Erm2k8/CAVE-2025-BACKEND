@@ -1,15 +1,10 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from dotenv import load_dotenv
-from pathlib import Path
 import os
+from routes.routers import router
+from config import load_environment
 
-BASE_DIR = Path(__file__).resolve().parent.parent
-
-load_dotenv(
-    os.path.join(BASE_DIR, ".env"),
-    override=True,
-)
+load_environment()
 
 app = FastAPI(
     title="Cave API",
@@ -26,6 +21,10 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+app.include_router(
+    router
+)
+
 @app.get("/")
 async def root():
     return {"message": "Hello World"}
@@ -33,6 +32,6 @@ async def root():
 
 if __name__ == "__main__":
     import uvicorn
-    port = int(os.getenv("PORT", 7000))
-    print(port)
-    uvicorn.run(app, host="127.0.0.1", port=port)
+    port = int(os.getenv("PORT", 8000))
+    server_host = os.getenv("SERVER_HOST", "127.0.0.1")
+    uvicorn.run(app, host=server_host, port=port, reload=True)

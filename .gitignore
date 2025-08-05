@@ -36,3 +36,6 @@ Thumbs.db
 # Other common temporary files
 dist/
 build/
+
+# Firebase files
+**/cave-festival-firebase-adminsdk.json

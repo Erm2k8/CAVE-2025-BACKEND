@@ -1,1 +1,7 @@
-# Arquivo destinado a injeção de dependências das rotas
+from services.bids import BidsService
+
+def get_bids_service() -> BidsService:
+    return BidsService()
+
+
+
