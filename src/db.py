@@ -5,7 +5,6 @@ from config import load_environment
 
 load_environment()
 
-
 # https://cave-festival-default-rtdb.firebaseio.com/
 
 firebaseConfig = {

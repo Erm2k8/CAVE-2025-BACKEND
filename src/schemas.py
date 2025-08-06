@@ -1,4 +1,6 @@
+from typing import Optional
 from pydantic import BaseModel, field_validator
+from enum import Enum
 from services.utils import Validator
 
 class BidCreate(BaseModel):
@@ -29,4 +31,19 @@ class BidCreate(BaseModel):
     def validate_name(cls, value):
         if not Validator.name(value):
             raise ValueError("Nome inválido")
+        return value
+    
+
+class Format(str, Enum):
+    csv = "csv"
+    excel = "excel"
+    json = "json"
+
+class ReportCreate(BaseModel):
+    format: Optional[Format] = Format.csv
+
+    @field_validator('format')
+    def validate_format(cls, value):
+        if value not in [Format.csv, Format.excel, Format.json]:
+            raise ValueError("Formato inválido. Use 'csv', 'excel' ou 'json'.")
         return value
