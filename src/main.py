@@ -30,8 +30,8 @@ async def root():
     return {"message": "Hello World"}
 
 
-if __name__ == "__main__":
-    import uvicorn
-    port = int(os.getenv("PORT", 8000))
-    server_host = os.getenv("SERVER_HOST", "127.0.0.1")
-    uvicorn.run(app, host=server_host, port=port, reload=True)
+# if __name__ == "__main__":
+#     import uvicorn
+#     port = int(os.getenv("PORT", 8000))
+#     server_host = os.getenv("SERVER_HOST", "127.0.0.1")
+#     uvicorn.run(app, host=server_host, port=port)

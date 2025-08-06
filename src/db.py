@@ -24,8 +24,11 @@ db = firestore.client()
 
 class FirestoreDB:
     @staticmethod
-    def add_document(collection: str, data: dict) -> None:
-        doc_ref = db.collection(collection).add(data)
+    def add_document(collection: str, data: dict, doc_id: str = None) -> None:
+        if doc_id:
+            db.collection(collection).document(doc_id).set(data)
+        else:
+            db.collection(collection).add(data)
 
     @staticmethod
     def get_documents(collection: str) -> list:

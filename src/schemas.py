@@ -40,7 +40,7 @@ class Format(str, Enum):
     json = "json"
 
 class ReportCreate(BaseModel):
-    format: Optional[Format] = Format.csv
+    format: Format
 
     @field_validator('format')
     def validate_format(cls, value):

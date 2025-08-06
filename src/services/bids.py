@@ -7,11 +7,11 @@ from db import db
 class BidsService:
     def create_bid(self, bid: BidCreate) -> None:
         bid_dict = bid.model_dump()
-        bid_dict["id"] = str(uuid.uuid4())
+        bid_id = str(uuid.uuid4())
         bid_dict["cpf"] = Cleaner.clean_cpf(bid_dict["cpf"])
         bid_dict["phone"] = Cleaner.clean_phone(bid_dict["phone"])
         bid_dict["name"] = Cleaner.clean_name(bid_dict["name"])
-        FirestoreDB.add_document("bids", bid_dict)
+        FirestoreDB.add_document("bids", bid_dict, doc_id=bid_id)
 
     def get_bids(self) -> list:
         return FirestoreDB.get_documents("bids")
