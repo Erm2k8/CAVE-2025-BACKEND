@@ -13,6 +13,7 @@ class BidsService:
         bid_dict["name"] = Cleaner.clean_name(bid_dict["name"])
         FirestoreDB.add_document("bids", bid_dict, doc_id=bid_id)
 
+
     def get_bids(self) -> list:
         return FirestoreDB.get_documents("bids")
     
@@ -20,6 +21,7 @@ class BidsService:
     @staticmethod
     def get_bid_by_id(bid_id: str) -> dict:
         return FirestoreDB.get_document("bids", bid_id)
+    
     
     @staticmethod
     def delete_all_bids() -> int:
@@ -41,3 +43,18 @@ class BidsService:
             batch.commit()
             
         return deleted_count
+    
+    
+    @staticmethod
+    def get_highest_bid() -> dict | None:
+        bids_ref = db.collection("bids")
+
+        query = bids_ref.order_by("amount", direction="DESCENDING").limit(1)
+        
+        results = query.stream()
+        
+        try:
+            highest_bid = next(results)
+            return highest_bid.to_dict()
+        except StopIteration:
+            return None

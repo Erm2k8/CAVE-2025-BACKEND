@@ -2,6 +2,7 @@ from fastapi import APIRouter, HTTPException, Depends, Response
 from schemas import ReportCreate
 from services.reports import ReportService
 from .deps import get_reports_service
+from auth import get_current_user
 
 router = APIRouter(
     prefix="/reports",
@@ -9,7 +10,7 @@ router = APIRouter(
 )
 
 @router.post("/")
-def create_report(report: ReportCreate, reports_service: ReportService = Depends(get_reports_service)):
+def create_report(report: ReportCreate, reports_service: ReportService = Depends(get_reports_service), token=Depends(get_current_user)):
     try:
         if report.format == "excel":
             excel_data = reports_service.get_report_excel()
