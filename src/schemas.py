@@ -47,3 +47,8 @@ class ReportCreate(BaseModel):
         if value not in [Format.csv, Format.excel, Format.json]:
             raise ValueError("Formato inválido. Use 'csv', 'excel' ou 'json'.")
         return value
+    
+
+class UserLogin(BaseModel):
+    username: str
+    password: str

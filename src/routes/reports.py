@@ -10,7 +10,7 @@ router = APIRouter(
 )
 
 @router.post("/")
-def create_report(report: ReportCreate, reports_service: ReportService = Depends(get_reports_service), token=Depends(get_current_user)):
+def create_report(report: ReportCreate, reports_service: ReportService = Depends(get_reports_service)):
     try:
         if report.format == "excel":
             excel_data = reports_service.get_report_excel()
