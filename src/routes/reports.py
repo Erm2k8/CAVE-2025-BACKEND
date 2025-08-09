@@ -9,7 +9,7 @@ router = APIRouter(
     tags=["Reports"],
 )
 
-@router.post("/")
+@router.get("/")
 def create_report(report: ReportCreate, reports_service: ReportService = Depends(get_reports_service)):
     try:
         if report.format == "excel":
