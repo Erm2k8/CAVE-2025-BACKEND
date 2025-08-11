@@ -6,6 +6,12 @@ from db import db
 
 class BidsService:
     def create_bid(self, bid: BidCreate) -> None:
+        bids_ref = db.collection("bids")
+        
+        existing_bid = bids_ref.where("amount", "==", bid.amount).limit(1).get()
+        if len(existing_bid) > 0:
+            raise ValueError(f"Já existe um lance com o valor de R$ {bid.amount}.")
+
         bid_dict = bid.model_dump()
         bid_id = str(uuid.uuid4())
         bid_dict["cpf"] = Cleaner.clean_cpf(bid_dict["cpf"])
@@ -21,6 +27,21 @@ class BidsService:
     @staticmethod
     def get_bid_by_id(bid_id: str) -> dict:
         return FirestoreDB.get_document("bids", bid_id)
+    
+    
+    def delete_bid_by_amount(self, amount: float) -> int:
+        bids_ref = db.collection("bids")
+
+        query = bids_ref.where("amount", "==", amount).limit(1)
+        docs_to_delete = list(query.stream())
+
+        if not docs_to_delete:
+            return 0 
+
+        doc_ref = docs_to_delete[0].reference
+        doc_ref.delete()
+        
+        return 1 
     
     
     @staticmethod

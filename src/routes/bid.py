@@ -21,6 +21,17 @@ async def create_bid(bid: BidCreate, bids_service=Depends(get_bids_service)):
         raise HTTPException(status_code=400, detail=str(e))
     
 
+@router.delete("/{bid_value}")
+def delete_bid_by_amount(bid_value: float, bids_service=Depends(get_bids_service)):
+    try:
+        deleted_count = bids_service.delete_bid_by_amount(bid_value)
+        if deleted_count == 0:
+            raise HTTPException(status_code=404, detail="Lance não encontrado")
+        return { "status": "success", "message": f"{deleted_count} lance(s) deletado(s)" }
+    except Exception as e:
+        raise HTTPException(status_code=400, detail=str(e))
+    
+
 @router.delete("/")
 async def delete_all_bids(bids_service=Depends(get_bids_service)):
     del_count = bids_service.delete_all_bids()
