@@ -35,8 +35,8 @@ class BidCreate(BaseModel):
     
 
 class Format(str, Enum):
-    csv = "csv"
     excel = "excel"
+    csv = "csv"
     json = "json"
 
 class ReportCreate(BaseModel):

@@ -19,9 +19,25 @@ class ReportService:
     @staticmethod
     def get_report_excel() -> bytes:
         df = ReportService.get_report()
-        output_buffer = io.BytesIO()
         
-        df.to_excel(output_buffer, index=False, engine='openpyxl')   
+        df = df.rename(columns={
+            "amount": "Valor",
+            "cpf": "CPF",
+            "phone": "Telefone",
+            "name": "Nome"
+        })
+        
+        # Ordena pelo valor do lance
+        df = df.sort_values(by='Valor', ascending=False)
+        
+        # Formatação dos campos
+        df['Valor'] = df['Valor'].apply(lambda x: f'R$ {x:,.2f}'.replace(',', 'X').replace('.', ',').replace('X', '.'))
+        df['CPF'] = df['CPF'].apply(lambda x: f'{x[:3]}.{x[3:6]}.{x[6:9]}-{x[9:]}')
+        df['Telefone'] = df['Telefone'].apply(lambda x: f'({x[:2]}) {x[2:7]}-{x[7:]}')
+        df['Nome'] = df['Nome'].apply(lambda x: x.title())
+                
+        output_buffer = io.BytesIO()
+        df.to_excel(output_buffer, index=False, engine='openpyxl')
         excel_data = output_buffer.getvalue()
         
         return excel_data
