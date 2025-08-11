@@ -14,7 +14,7 @@ class Validator:
     
     @staticmethod
     def name(name: str) -> bool:
-        regex = r'^[A-Za-zÀ-ÖØ-öø-ÿ\s]+$'
+        regex = r'^([A-Za-zÀ-ú\s\'-]+( [A-Za-zÀ-ú\s\'-]+)*)$'
         return bool(re.match(regex, name))
     
     @staticmethod
