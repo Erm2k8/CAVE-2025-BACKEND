@@ -8,60 +8,76 @@ O sistema foi projetado para leiloar uma obra de arte única, pintada ao vivo po
 
 ## Tecnologias Utilizadas
 
-<img src="https://img.shields.io/badge/Python-FFD43B?style=for-the-badge&logo=python&logoColor=blue"><img src="https://img.shields.io/badge/fastapi-109989?style=for-the-badge&logo=FASTAPI&logoColor=white"><img src="https://img.shields.io/badge/Pandas-2C2D72?style=for-the-badge&logo=pandas&logoColor=white"><img src="https://img.shields.io/badge/Sqlite-003B57?style=for-the-badge&logo=sqlite&logoColor=white">
+<img src="https://img.shields.io/badge/Python-FFD43B?style=for-the-badge&logo=python&logoColor=blue"> <img src="https://img.shields.io/badge/fastapi-109989?style=for-the-badge&logo=FASTAPI&logoColor=white"> <img src="https://img.shields.io/badge/Pandas-2C2D72?style=for-the-badge&logo=pandas&logoColor=white"> <img src="https://img.shields.io/badge/Firebase-FFCA28?style=for-the-badge&logo=firebase&logoColor=black">
 
 ## Endpoints da Aplicação
 
-| Rota                            | Descrição |
-| ------------------------------- | --------- |
-| <kbd>GET /authenticate</kbd>    | Endpoint de exemplo sem função definida       |
-| <kbd>POST /authenticate</kbd>   | Endpoint de exemplo sem função definida       |
-| <kbd>DELETE /authenticate</kbd> | Endpoint de exemplo sem função definida       |
+### Autenticação
+| Rota | Descrição | Autenticação |
+| --- | --- | --- |
+| <kbd>GET /auth/validate_auth</kbd> | Valida se o usuário está autenticado com sucesso. | HTTP Basic Auth |
 
+### Lances (Bids)
+| Rota | Descrição |
+| --- | --- |
+| <kbd>POST /bids</kbd> | Cria um novo lance. |
+| <kbd>GET /bids</kbd> | Retorna a lista de todos os lances. |
+| <kbd>GET /bids/highest</kbd> | Retorna o maior lance registrado. |
+| <kbd>DELETE /bids/{bid_value}</kbd> | Deleta um lance com base no seu valor. |
+| <kbd>DELETE /bids</kbd> | Deleta **todos** os lances. |
+
+### Relatórios (Reports)
+| Rota | Descrição |
+| --- | --- |
+| <kbd>POST /reports</kbd> | Gera e retorna um relatório de lances. O formato (`excel`, `csv`, `json`) deve ser especificado no corpo da requisição. |
 
 ## Executando o projeto
 
 ### Pré-requisitos
 
-- Python 3.12.4+
-- Pip 24.2+
+- Python 3.12+
+- Pip 24.0+
 
 ### Passos:
 
-```bash
-git clone https://github.com/Erm2k8/CAVE-2025-BACKEND.git
-```
+1.  Clone o repositório:
+    ```bash
+    git clone [https://github.com/Erm2k8/CAVE-2025-BACKEND.git](https://github.com/Erm2k8/CAVE-2025-BACKEND.git)
+    ```
 
-```bash
-cd CAVE-2025-BACKEND
-```
+2.  Acesse o diretório do projeto:
+    ```bash
+    cd CAVE-2025-BACKEND
+    ```
 
-```bash
-python -m venv .venv
-```
+3.  Crie e ative um ambiente virtual:
+    ```bash
+    # Crie o ambiente
+    python -m venv .venv
 
-```bash
-python -m venv .venv
-```
+    # Ative o ambiente
+    # Windows
+    .venv\Scripts\activate
+    # Linux/Mac
+    source .venv/bin/activate
+    ```
 
-```bash
-.venv\Scripts\activate # Windows
-source .venv/bin/activate # Linux/Mac
-```
+4.  Instale as dependências:
+    ```bash
+    pip install -r src/requirements.txt
+    ```
 
-```bash
-python -m pip install -r requirements.txt
-```
+5.  Configure as variáveis de ambiente:
+    - Renomeie o arquivo `.env.example` para `.env`.
+    - Preencha as variáveis de ambiente no arquivo `.env` com suas credenciais do Firebase e de administrador.
 
-```bash
-cd src
-```
+6.  Execute a aplicação:
+    ```bash
+    cd src
+    uvicorn main:app --reload
+    ```
 
-```bash
-python main.py
-```
-
-A aplicação estará disponível em `http://localhost:8000` após ser iniciada com o comando `uvicorn`.
+A aplicação estará disponível em `http://127.0.0.1:8000`. A documentação interativa da API pode ser acessada em `http://127.0.0.1:8000/docs`.
 
 ## Colaboradores
 
